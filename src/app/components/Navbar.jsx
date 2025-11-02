@@ -23,6 +23,20 @@ const navLinks = [
 const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
+  // ✅ Smooth scroll handler
+  const handleSmoothScroll = (e, path) => {
+    if (path.startsWith("#")) {
+      e.preventDefault();
+      const section = document.querySelector(path);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+        setNavbarOpen(false);
+        // Update the URL hash (optional)
+        history.replaceState(null, "", path);
+      }
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#121212] bg-opacity-100 border-b border-[#33353F] backdrop-blur-md">
       <div className="flex container items-center justify-between mx-auto px-4 py-3 md:py-4">
@@ -56,7 +70,14 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8">
           {navLinks.map((link, index) => (
-            <NavLink key={index} href={link.path} title={link.title} />
+            <a
+              key={index}
+              href={link.path}
+              onClick={(e) => handleSmoothScroll(e, link.path)}
+              className="text-white hover:text-blue-400 transition"
+            >
+              {link.title}
+            </a>
           ))}
         </div>
       </div>
@@ -65,13 +86,14 @@ const Navbar = () => {
       {navbarOpen && (
         <div className="fixed inset-0 top-[64px] bg-black bg-opacity-95 flex flex-col items-center justify-center gap-6 text-white z-40">
           {navLinks.map((link, index) => (
-            <button
+            <a
               key={index}
-              onClick={() => setNavbarOpen(false)}
+              href={link.path}
+              onClick={(e) => handleSmoothScroll(e, link.path)}
               className="text-lg hover:text-blue-400 transition"
             >
-              <a href={link.path}>{link.title}</a>
-            </button>
+              {link.title}
+            </a>
           ))}
         </div>
       )}
