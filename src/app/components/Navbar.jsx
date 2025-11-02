@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 const navLinks = [
   { title: "About", path: "about" },
   { title: "Projects", path: "projects" },
-  { title: "Contact", path: "contact" },
+  { title: "ContacT", path: "contact" },
 ];
 
 const Navbar = () => {
@@ -16,7 +16,8 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (section) {
       const yOffset = -80;
-      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const y =
+        section.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
       setNavbarOpen(false);
     }
@@ -63,12 +64,12 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {navbarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center gap-5 text-white z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center gap-3 text-white z-50 transition-all duration-300 ease-in-out">
           {navLinks.map((link, index) => (
             <button
               key={index}
               onClick={() => handleScroll(link.path)}
-              className="w-3/4 text-center py-3 text-lg sm:text-xl hover:text-blue-500 transition rounded-lg bg-[#1a1a1a]"
+              className="w-auto px-6 py-2 text-base sm:text-lg font-medium hover:text-blue-400 transition"
             >
               {link.title}
             </button>
