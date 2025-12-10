@@ -54,7 +54,7 @@ const HeroSection = () => {
 
             {}
             <a
-              href="/resumemain1.pdf"
+              href="/Cyber Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"

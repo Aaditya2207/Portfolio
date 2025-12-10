@@ -50,6 +50,7 @@ const TAB_DATA = [
           { src: "/icons/postman.svg", name: "Postman" },
           { src: "/icons/wireshark.svg", name: "Wireshark" },
           { src: "/icons/nmap.svg", name: "Nmap" },
+          { src: "/icons/Kleopatra.svg", name: "Kleopatra" },
         ].map((item) => (
           <div
             key={item.name}
