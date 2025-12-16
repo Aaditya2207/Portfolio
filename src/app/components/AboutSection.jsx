@@ -44,7 +44,7 @@ const TAB_DATA = [
     content: (
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {[
-          { src: "/icons/chrome-modern-.svg", name: "Google Chrome" },
+          // { src: "/icons/chrome-modern-.svg", name: "Google Chrome" },
           { src: "/icons/visual-studio-code-1.svg", name: "VS Code" },
           { src: "/icons/giticon.svg", name: "Git" },
           { src: "/icons/postman.svg", name: "Postman" },

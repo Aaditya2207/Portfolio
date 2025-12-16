@@ -28,23 +28,26 @@ const HeroSection = () => {
               Hello, I&apos;m{" "}
             </span>
             <br />
-            <TypeAnimation
-              sequence={[
-                "Aaditya",
-                1000,
-                "Web Developer",
-                1000,
-                "Cyber Security Analyst",
-                1000,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-            />
+
+            {}
+            <span className="inline-block min-h-[1.2em]">
+              <TypeAnimation
+                sequence={[
+                  "Aaditya",
+                  1000,
+                  "Web Developer",
+                  1000,
+                  "Cyber Security Analyst",
+                  1000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+              />
+            </span>
           </h1>
 
           <div>
-            {}
             <button
               onClick={handleScroll}
               className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white"
@@ -52,7 +55,6 @@ const HeroSection = () => {
               Hire Me
             </button>
 
-            {}
             <a
               href="/Cyber Resume.pdf"
               target="_blank"
