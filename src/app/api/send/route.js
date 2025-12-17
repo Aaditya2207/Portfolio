@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import nodemailer from "nodemailer";
 
 export async function POST(req) {
@@ -7,42 +9,51 @@ export async function POST(req) {
     if (!email || !subject || !message) {
       return new Response(
         JSON.stringify({ success: false, error: "Missing fields" }),
-        { status: 400 }
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
-    // ✅ Outlook / Office 365 SMTP configuration
     const transporter = nodemailer.createTransport({
       host: "smtp.office365.com",
       port: 587,
-      secure: false, // MUST be false
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER, // aadityak22@outlook.com
-        pass: process.env.EMAIL_PASS, // Outlook App Password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER, // 👉 email comes to Outlook
-      replyTo: email, // reply goes to sender
+      to: process.env.EMAIL_USER,
+      replyTo: email,
       subject: `Portfolio: ${subject}`,
       text: `📩 From: ${email}\n\n${message}`,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
-
-    console.log("✅ Email sent successfully (Outlook)!");
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    return new Response(
+      JSON.stringify({ success: true }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
   } catch (error) {
     console.error("❌ Email send error:", error);
+
     return new Response(
       JSON.stringify({
         success: false,
         error: error.message || "Internal Server Error",
       }),
-      { status: 500 }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
     );
   }
 }
