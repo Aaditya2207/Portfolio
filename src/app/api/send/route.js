@@ -11,28 +11,30 @@ export async function POST(req) {
       );
     }
 
-    // ✅ Create transporter using Gmail + App Password
+    // ✅ Outlook / Office 365 SMTP configuration
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.office365.com",
+      port: 587,
+      secure: false, // MUST be false
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER, // aadityak22@outlook.com
+        pass: process.env.EMAIL_PASS, // Outlook App Password
       },
     });
 
-    // ✅ Use your Gmail as the sender (not user input)
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: "aadityaakshat304@gmail.com", // your inbox
-      replyTo: email, // allows reply to sender’s email
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER, // 👉 email comes to Outlook
+      replyTo: email, // reply goes to sender
       subject: `Portfolio: ${subject}`,
       text: `📩 From: ${email}\n\n${message}`,
     };
 
     await transporter.sendMail(mailOptions);
 
-    console.log("✅ Email sent successfully!");
+    console.log("✅ Email sent successfully (Outlook)!");
     return new Response(JSON.stringify({ success: true }), { status: 200 });
+
   } catch (error) {
     console.error("❌ Email send error:", error);
     return new Response(
