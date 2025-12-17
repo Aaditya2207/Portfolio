@@ -1,6 +1,8 @@
 export const runtime = "nodejs";
 
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req) {
   try {
@@ -16,22 +18,19 @@ export async function POST(req) {
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
+    await resend.emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: ["aadityak22@outlook.com"], // you receive mail here
       replyTo: email,
       subject: `Portfolio: ${subject}`,
-      text: `📩 From: ${email}\n\n${message}`,
+      html: `
+        <div style="font-family: Arial, sans-serif;">
+          <h3>New Portfolio Message</h3>
+          <p><strong>From:</strong> ${email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        </div>
+      `,
     });
 
     return new Response(
@@ -43,7 +42,7 @@ export async function POST(req) {
     );
 
   } catch (error) {
-    console.error("❌ Email send error:", error);
+    console.error("❌ Resend error:", error);
 
     return new Response(
       JSON.stringify({
