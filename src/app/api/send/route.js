@@ -2,8 +2,6 @@ export const runtime = "nodejs";
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Simple HTML sanitization function to prevent XSS
 function sanitizeHtml(text) {
   if (typeof text !== 'string') return '';
@@ -95,6 +93,9 @@ export async function POST(req) {
         }
       );
     }
+
+    // Initialize Resend client inside the function to avoid build-time issues
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { email, subject, message } = await req.json();
 
