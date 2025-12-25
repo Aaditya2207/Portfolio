@@ -13,6 +13,21 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        progress: {
+          "0%": { transform: "translateX(-100%)" },
+          "50%": { transform: "translateX(300%)" },
+          "100%": { transform: "translateX(300%)" },
+        },
+      },
+      animation: {
+        shimmer: "shimmer 2s infinite",
+        progress: "progress 2s infinite",
+      },
     },
     colors: {
       ...colors,

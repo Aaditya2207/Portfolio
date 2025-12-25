@@ -13,9 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#121212] text-white`}>
+      <body className={`${inter.className} bg-[#121212] text-white flex flex-col min-h-screen`}>
         <Navbar />
-        {children}
+        <div className="flex-grow">
+          {children}
+        </div>
         <Footer />
         <ScrollToTopButton /> {/* 👈 Scroll-to-top button added */}
       </body>

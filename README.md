@@ -13,6 +13,39 @@ This is a portfolio website built with Next.js and Tailwind CSS. It showcases yo
 1. Start the development server: `npm run dev`
 2. Open your browser and visit `http://localhost:3000` to view the website.
 
+## Environment Variables Setup
+
+**IMPORTANT: Before deploying to production, you must configure environment variables.**
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+# Resend API Configuration
+# Get your API key from https://resend.com/api-keys
+RESEND_API_KEY=re_your_api_key_here
+
+# Email Configuration
+# The email address where you want to receive portfolio messages
+RESEND_TO_EMAIL=your-email@example.com
+
+# Optional: Custom "from" email address
+# Must be verified in your Resend account
+# RESEND_FROM_EMAIL=onboarding@resend.dev
+```
+
+### Getting Your Resend API Key:
+1. Sign up at [resend.com](https://resend.com)
+2. Go to API Keys section
+3. Create a new API key
+4. Copy the key and add it to `.env.local`
+
+### For Production Deployment:
+- **Vercel**: Add environment variables in Project Settings → Environment Variables
+- **Netlify**: Add in Site Settings → Environment Variables
+- **Other platforms**: Add environment variables in your hosting platform's dashboard
+
+**⚠️ SECURITY WARNING: Never commit `.env.local` or any `.env` files to Git!**
+
 ## Dependencies
 
 The following dependencies are required for this project:

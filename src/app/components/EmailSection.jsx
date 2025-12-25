@@ -12,10 +12,36 @@ const EmailSection = () => {
     e.preventDefault();
     setIsLoading(true); // start loading
 
+    const email = e.target.email.value.trim();
+    const subject = e.target.subject.value.trim();
+    const message = e.target.message.value.trim();
+
+    // Client-side validation
+    if (!email || !subject || !message) {
+      alert("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      setIsLoading(false);
+      return;
+    }
+
+    // Length validation
+    if (email.length > 254 || subject.length > 200 || message.length > 5000) {
+      alert("Input is too long. Please shorten your message.");
+      setIsLoading(false);
+      return;
+    }
+
     const data = {
-      email: e.target.email.value,
-      subject: e.target.subject.value,
-      message: e.target.message.value,
+      email,
+      subject,
+      message,
     };
 
     try {
@@ -30,12 +56,13 @@ const EmailSection = () => {
         setEmailSubmitted(true);
         e.target.reset();
       } else {
-        console.error("❌ Failed to send message");
-        alert("Failed to send email. Please try again later.");
+        const errorData = await response.json().catch(() => ({}));
+        console.error("❌ Failed to send message:", errorData);
+        alert(`Failed to send email: ${errorData.error || "Please try again later."}`);
       }
     } catch (error) {
       console.error("⚠️ Error:", error);
-      alert("Something went wrong!");
+      alert("Something went wrong! Please try again later.");
     } finally {
       setIsLoading(false); // stop loading
     }
@@ -139,35 +166,41 @@ const EmailSection = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`${
+              className={`relative overflow-hidden ${
                 isLoading
-                  ? "bg-gray-600 cursor-not-allowed"
+                  ? "bg-gradient-to-r from-primary-500 to-secondary-500 cursor-not-allowed"
                   : "bg-primary-500 hover:bg-primary-600"
-              } text-white font-medium py-2.5 px-5 rounded-lg w-full flex items-center justify-center gap-2`}
+              } text-white font-medium py-2.5 px-5 rounded-lg w-full flex items-center justify-center gap-2 transition-all duration-300`}
             >
               {isLoading ? (
                 <>
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v8H4z"
-                    ></path>
-                  </svg>
-                  Sending...
+                  {/* Animated background gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-400 via-secondary-500 to-primary-400 animate-shimmer bg-[length:200%_100%]"></div>
+                  
+                  {/* Techy loading spinner */}
+                  <div className="relative z-10 flex items-center gap-3">
+                    <div className="relative w-6 h-6">
+                      {/* Outer rotating ring */}
+                      <div className="absolute inset-0 border-2 border-transparent border-t-white border-r-white rounded-full animate-spin"></div>
+                      {/* Inner pulsing ring */}
+                      <div className="absolute inset-1 border-2 border-transparent border-b-primary-300 border-l-primary-300 rounded-full animate-spin [animation-direction:reverse] [animation-duration:0.8s]"></div>
+                      {/* Center dot */}
+                      <div className="absolute inset-2 bg-white rounded-full animate-pulse"></div>
+                    </div>
+                    
+                    {/* Animated text with dots */}
+                    <span className="relative z-10 font-semibold">
+                      Sending
+                      <span className="inline-block w-1.5 h-1.5 ml-1 bg-white rounded-full animate-bounce"></span>
+                      <span className="inline-block w-1.5 h-1.5 ml-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                      <span className="inline-block w-1.5 h-1.5 ml-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    </span>
+                  </div>
+                  
+                  {/* Progress bar effect */}
+                  <div className="absolute bottom-0 left-0 h-1 bg-white/30 w-full overflow-hidden rounded-b-lg">
+                    <div className="h-full bg-white animate-progress w-1/3"></div>
+                  </div>
                 </>
               ) : (
                 "Send Message"
@@ -181,3 +214,4 @@ const EmailSection = () => {
 };
 
 export default EmailSection;
+
