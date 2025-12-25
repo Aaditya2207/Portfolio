@@ -64,13 +64,37 @@ export async function POST(req) {
       );
     }
 
+    // Get environment variables - check multiple possible names for Vercel compatibility
+    const apiKey = (
+      process.env.RESEND_API_KEY || 
+      process.env.NEXT_PUBLIC_RESEND_API_KEY || 
+      ''
+    ).trim();
+    
+    const recipientEmail = (
+      process.env.RESEND_TO_EMAIL || 
+      process.env.NEXT_PUBLIC_RESEND_TO_EMAIL || 
+      ''
+    ).trim();
+
+    // Debug logging (only in development or if explicitly enabled)
+    if (process.env.NODE_ENV === 'development' || process.env.DEBUG_ENV === 'true') {
+      console.log("Environment variables check:", {
+        hasRESEND_API_KEY: !!process.env.RESEND_API_KEY,
+        apiKeyLength: apiKey.length,
+        hasRESEND_TO_EMAIL: !!process.env.RESEND_TO_EMAIL,
+        recipientEmailLength: recipientEmail.length,
+        allEnvKeys: Object.keys(process.env).filter(k => k.toUpperCase().includes('RESEND'))
+      });
+    }
+
     // Check if API key is configured
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY is not configured");
+    if (!apiKey || apiKey === 'undefined' || apiKey.length < 10) {
+      console.error("RESEND_API_KEY is missing or invalid");
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: "Server configuration error. Please contact the administrator." 
+          error: "Email service configuration is missing. Please ensure RESEND_API_KEY is set in Vercel environment variables." 
         }),
         {
           status: 500,
@@ -80,12 +104,12 @@ export async function POST(req) {
     }
 
     // Check if recipient email is configured
-    if (!process.env.RESEND_TO_EMAIL) {
-      console.error("RESEND_TO_EMAIL is not configured");
+    if (!recipientEmail || recipientEmail === 'undefined' || !recipientEmail.includes('@')) {
+      console.error("RESEND_TO_EMAIL is missing or invalid");
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: "Server configuration error. Please contact the administrator." 
+          error: "Email service configuration is missing. Please ensure RESEND_TO_EMAIL is set in Vercel environment variables." 
         }),
         {
           status: 500,
@@ -95,9 +119,25 @@ export async function POST(req) {
     }
 
     // Initialize Resend client inside the function to avoid build-time issues
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = new Resend(apiKey);
 
-    const { email, subject, message } = await req.json();
+    // Parse request body
+    let email, subject, message;
+    try {
+      const body = await req.json();
+      email = body.email;
+      subject = body.subject;
+      message = body.message;
+    } catch (parseError) {
+      console.error("Error parsing request body:", parseError);
+      return new Response(
+        JSON.stringify({ success: false, error: "Invalid request format" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
 
     // Input validation
     if (!email || !subject || !message) {
@@ -137,9 +177,10 @@ export async function POST(req) {
     const sanitizedSubject = sanitizeHtml(subject);
     const sanitizedMessage = sanitizeHtml(message);
 
+    // Send email using Resend
     const result = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
-      to: process.env.RESEND_TO_EMAIL,
+      from: process.env.RESEND_FROM_EMAIL?.trim() || "onboarding@resend.dev",
+      to: recipientEmail,
       replyTo: email, // Use original email for reply-to (safe as it's validated)
       subject: `Portfolio: ${sanitizedSubject}`,
       html: `
@@ -153,11 +194,29 @@ export async function POST(req) {
       `,
     });
 
+    // Handle Resend API response
+    // Resend can return: { data: {...}, error: null } or { data: null, error: {...} }
     if (result.error) {
-      console.error("Resend API error:", result.error);
-      throw new Error("Failed to send email");
+      console.error("Resend API error:", JSON.stringify(result.error, null, 2));
+      throw new Error(result.error.message || "Failed to send email");
     }
 
+    // Success - check if we have data or if result itself indicates success
+    if (result.data || result.id) {
+      const emailId = result.data?.id || result.id;
+      console.log("Email sent successfully:", emailId);
+      return new Response(
+        JSON.stringify({ success: true }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // If we get here, log the unexpected response for debugging
+    console.warn("Unexpected Resend response format:", JSON.stringify(result, null, 2));
+    // Still return success if no error was thrown
     return new Response(
       JSON.stringify({ success: true }),
       {

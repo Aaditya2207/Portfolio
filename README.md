@@ -39,12 +39,27 @@ RESEND_TO_EMAIL=your-email@example.com
 3. Create a new API key
 4. Copy the key and add it to `.env.local`
 
-### For Production Deployment:
-- **Vercel**: Add environment variables in Project Settings → Environment Variables
+### For Production Deployment (Vercel):
+
+1. **Go to your Vercel project dashboard**
+2. **Navigate to**: Settings → Environment Variables
+3. **Add these three variables**:
+   - `RESEND_API_KEY` = `re_your_actual_api_key_here` (get from resend.com)
+   - `RESEND_TO_EMAIL` = `aadityak22@outlook.com` (your email address)
+   - `RESEND_FROM_EMAIL` = `onboarding@resend.dev` (optional, or your verified domain email)
+4. **Select environment**: Choose "Production", "Preview", and "Development" (or just Production)
+5. **Click "Save"**
+6. **Redeploy your application** (Vercel will automatically redeploy when you save env vars, or you can manually redeploy)
+
+**Important Notes:**
+- After adding environment variables, you MUST redeploy for changes to take effect
+- Make sure there are no extra spaces when copying the API key
+- The API key should start with `re_`
+- Never commit `.env.local` or any `.env` files to Git!
+
+### For Other Platforms:
 - **Netlify**: Add in Site Settings → Environment Variables
 - **Other platforms**: Add environment variables in your hosting platform's dashboard
-
-**⚠️ SECURITY WARNING: Never commit `.env.local` or any `.env` files to Git!**
 
 ## Dependencies
 
