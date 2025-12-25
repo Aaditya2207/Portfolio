@@ -22,11 +22,11 @@ const HeroSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center sm:text-left w-full px-4"
         >
-          <h1 className="text-white mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold overflow-hidden">
+          <h1 className="text-white mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-extrabold overflow-hidden px-2 sm:px-0">
             <div className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-600">
               Hello, I&apos;m
             </div>
-            <div className="min-h-[1.2em] lg:whitespace-nowrap">
+            <div className="min-h-[1.2em] break-words hyphens-auto md:break-normal lg:whitespace-nowrap leading-tight">
               <TypeAnimation
                 sequence={[
                   "Aaditya",
