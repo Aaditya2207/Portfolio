@@ -85,29 +85,36 @@ const AboutSection = () => {
 
   return (
     <section className="text-white" id="about">
-      <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-        {/* <Image
-          src="/images/about-image.png"
-          width={500}
-          height={500}
-          alt="About me"
-          className="object-contain"
-        /> */}
-        <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
-          <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
-          <p className="text-base lg:text-lg">
-          I’m a technology enthusiast passionate about Cybersecurity, AI, and innovative digital products. Currently pursuing my degree in engineering, I actively engage in solving real-world problems through CTFs, hackathons, and hands-on projects.
-
-As a member of the IEEE Student Branch, I’ve contributed to multiple university-level technical events and coding competitions, most recently volunteering at HackFinity 2025 and participating in the DSCI–EY National Level CTF Hackathon. These experiences strengthened my skills in threat analysis, problem-solving, and working under pressure.
-
-I’m also the Co-Founder of Homebooth, a Web3-powered multilingual learning platform designed to help learners stay consistent through crypto-based incentives and structured AI-assisted learning journeys. Building this startup has taught me product thinking, team collaboration, and user-centric design.
-
-I love exploring the intersection of Cybersecurity, Deep Learning, and Web3, and I’m currently working on a project related to Deepfake Detection using CNNs. Always eager to learn, collaborate, and take on challenging opportunities that help me grow as a future cybersecurity specialist.
-
-Interests: Cybersecurity, CTFs, Machine Learning, Web3, Computer Vision, Product Development, AI-driven Learning Systems
-
-Open to: Internships · Research Projects · Collaborations · Tech Communities · Startup Opportunities
-          </p>
+      <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 md:px-8 lg:px-12 sm:py-16">
+        <div className="text-left flex flex-col h-full">
+          <h2 className="text-4xl font-bold text-white mb-6">About Me</h2>
+          <div className="text-base lg:text-lg text-gray-300 leading-relaxed space-y-4">
+            <p>
+              I'm a technology enthusiast passionate about <span className="text-white font-semibold">Cybersecurity</span>, <span className="text-white font-semibold">AI</span>, and innovative digital products. Currently pursuing my degree in engineering, I actively engage in solving real-world problems through CTFs, hackathons, and hands-on projects.
+            </p>
+            
+            <p>
+              As a member of the <span className="text-white font-semibold">IEEE Student Branch</span>, I've contributed to multiple university-level technical events and coding competitions, most recently volunteering at <span className="text-white font-semibold">HackFinity 2025</span> and participating in the <span className="text-white font-semibold">DSCI–EY National Level CTF Hackathon</span>. These experiences strengthened my skills in threat analysis, problem-solving, and working under pressure.
+            </p>
+            
+            <p>
+              I'm also the <span className="text-white font-semibold">Co-Founder of Homebooth</span>, a Web3-powered multilingual learning platform designed to help learners stay consistent through crypto-based incentives and structured AI-assisted learning journeys. Building this startup has taught me product thinking, team collaboration, and user-centric design.
+            </p>
+            
+            <p>
+              I love exploring the intersection of Cybersecurity, Deep Learning, and Web3, and I'm currently working on a project related to <span className="text-white font-semibold">Deepfake Detection using CNNs</span>. Always eager to learn, collaborate, and take on challenging opportunities that help me grow as a future cybersecurity specialist.
+            </p>
+            
+            <div className="pt-2">
+              <p className="text-white font-semibold mb-2">Interests:</p>
+              <p className="text-gray-300">Cybersecurity, CTFs, Machine Learning, Web3, Computer Vision, Product Development, AI-driven Learning Systems</p>
+            </div>
+            
+            <div className="pt-2">
+              <p className="text-white font-semibold mb-2">Open to:</p>
+              <p className="text-gray-300">Internships · Research Projects · Collaborations · Tech Communities · Startup Opportunities</p>
+            </div>
+          </div>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
               selectTab={() => handleTabChange("skills")}

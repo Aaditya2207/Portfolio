@@ -43,10 +43,10 @@ const HeroSection = () => {
             </div>
           </h1>
 
-          <div>
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <button
               onClick={handleScroll}
-              className="px-4 py-2 sm:px-6 sm:py-3 inline-block w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white text-sm sm:text-base"
+              className="px-8 py-3 sm:px-10 sm:py-4 inline-block w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white text-base sm:text-lg font-semibold transition-all duration-300 hover:scale-105"
             >
               Hire Me
             </button>
@@ -55,9 +55,9 @@ const HeroSection = () => {
               href="/Cyber Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-1 inline-block py-1 w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
+              className="px-1 inline-block py-1 w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white transition-all duration-300 hover:scale-105"
             >
-              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-4 py-2 sm:px-5 sm:py-2 text-sm sm:text-base">
+              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold">
                 Download CV
               </span>
             </a>
