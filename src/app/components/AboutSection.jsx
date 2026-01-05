@@ -90,19 +90,19 @@ const AboutSection = () => {
           <h2 className="text-4xl font-bold text-white mb-6">About Me</h2>
           <div className="text-base lg:text-lg text-gray-300 leading-relaxed space-y-4">
             <p>
-              I'm a technology enthusiast passionate about <span className="text-white font-semibold">Cybersecurity</span>, <span className="text-white font-semibold">AI</span>, and innovative digital products. Currently pursuing my degree in engineering, I actively engage in solving real-world problems through CTFs, hackathons, and hands-on projects.
+              I&apos;m a technology enthusiast passionate about <span className="text-white font-semibold">Cybersecurity</span>, <span className="text-white font-semibold">AI</span>, and innovative digital products. Currently pursuing my degree in engineering, I actively engage in solving real-world problems through CTFs, hackathons, and hands-on projects.
             </p>
             
             <p>
-              As a member of the <span className="text-white font-semibold">IEEE Student Branch</span>, I've contributed to multiple university-level technical events and coding competitions, most recently volunteering at <span className="text-white font-semibold">HackFinity 2025</span> and participating in the <span className="text-white font-semibold">DSCI–EY National Level CTF Hackathon</span>. These experiences strengthened my skills in threat analysis, problem-solving, and working under pressure.
+              As a member of the <span className="text-white font-semibold">IEEE Student Branch</span>, I&apos;ve contributed to multiple university-level technical events and coding competitions, most recently volunteering at <span className="text-white font-semibold">HackFinity 2025</span> and participating in the <span className="text-white font-semibold">DSCI–EY National Level CTF Hackathon</span>. These experiences strengthened my skills in threat analysis, problem-solving, and working under pressure.
             </p>
             
             <p>
-              I'm also the <span className="text-white font-semibold">Co-Founder of Homebooth</span>, a Web3-powered multilingual learning platform designed to help learners stay consistent through crypto-based incentives and structured AI-assisted learning journeys. Building this startup has taught me product thinking, team collaboration, and user-centric design.
+              I&apos;m also the <span className="text-white font-semibold">Co-Founder of Homebooth</span>, a Web3-powered multilingual learning platform designed to help learners stay consistent through crypto-based incentives and structured AI-assisted learning journeys. Building this startup has taught me product thinking, team collaboration, and user-centric design.
             </p>
             
             <p>
-              I love exploring the intersection of Cybersecurity, Deep Learning, and Web3, and I'm currently working on a project related to <span className="text-white font-semibold">Deepfake Detection using CNNs</span>. Always eager to learn, collaborate, and take on challenging opportunities that help me grow as a future cybersecurity specialist.
+              I love exploring the intersection of Cybersecurity, Deep Learning, and Web3, and I&apos;m currently working on a project related to <span className="text-white font-semibold">Deepfake Detection using CNNs</span>. Always eager to learn, collaborate, and take on challenging opportunities that help me grow as a future cybersecurity specialist.
             </p>
             
             <div className="pt-2">

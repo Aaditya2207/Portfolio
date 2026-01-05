@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { CodeBracketIcon, EyeIcon } from "@heroicons/react/24/outline";
 
 const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl }) => {
@@ -6,10 +7,11 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl }) => {
     <div className="rounded-xl overflow-hidden bg-[#181818]">
       {/* Image Section */}
       <div className="relative h-52 md:h-72 group">
-        <img
+        <Image
           src={imgUrl}
           alt={title}
-          className="w-full h-full object-contain"
+          fill
+          className="object-contain"
         />
         {/* Overlay Icons */}
         <div className="overlay items-center justify-center absolute top-0 left-0 w-full h-full bg-[#181818] bg-opacity-0 hidden group-hover:flex group-hover:bg-opacity-80 transition-all duration-500">
